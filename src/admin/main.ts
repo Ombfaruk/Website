@@ -680,8 +680,8 @@ function updatePreview() {
     : '';
   const screens = state.gallery.map((item) => `<figure><img src="${escapeHtml(item.previewUrl)}" alt="${escapeHtml(item.alt)}" /><figcaption>${escapeHtml(item.caption || item.alt)}</figcaption></figure>`).join('');
   preview.innerHTML = `<h2>Preview</h2>
-    <a class="work-card" href="#preview">${coverHtml}<p class="eyebrow">${escapeHtml(client)}</p><h3>${escapeHtml(outcome || 'Outcome line')}</h3></a>
-    <article class="case"><p class="eyebrow">${escapeHtml(client)}</p><h2>${escapeHtml(outcome || title || 'Outcome line')}</h2><div class="prose">${html}</div>${screens ? `<h2>Final screens</h2><div class="gallery">${screens}</div>` : ''}</article>`;
+    <a class="case-card" href="#preview"><div class="case-card-image">${coverHtml}</div><div class="case-card-body"><div class="case-card-company">${escapeHtml(client)}</div><div class="case-card-title">${escapeHtml(title || 'Title')}</div></div><div class="case-card-byline">${escapeHtml(outcome || 'Outcome line')}</div></a>
+    <article class="case-study"><h2>${escapeHtml(outcome || title || 'Outcome line')}</h2><div class="case-prose">${html}</div>${screens ? `<h2>Final screens</h2><div class="case-grid-3">${screens}</div>` : ''}</article>`;
 }
 
 function applyPreviewUrls(html: string) {
