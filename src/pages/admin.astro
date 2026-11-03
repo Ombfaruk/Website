@@ -1,0 +1,23 @@
+---
+import '../styles/admin.css';
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  bare
+  noindex
+  title="Admin"
+  description="Add, edit, or remove a case study on Omar Faruk's portfolio."
+>
+  <div id="admin-root"></div>
+  <noscript>
+    <p class="container">This admin needs JavaScript so it can save to GitHub from your browser.</p>
+  </noscript>
+</Base>
+
+<script>
+  import { mountAdmin } from '../admin/main';
+
+  const root = document.getElementById('admin-root');
+  if (root) mountAdmin(root);
+</script>
