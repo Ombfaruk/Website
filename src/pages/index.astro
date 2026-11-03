@@ -1,0 +1,186 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { siteConfig } from '../config';
+import { bio, experience, links, proof, services } from '../data/site';
+import { asset, sitePath } from '../lib/asset';
+import { publishedWork } from '../lib/work';
+
+const base = import.meta.env.BASE_URL;
+const studies = publishedWork(await getCollection('work'));
+const quotes = studies.flatMap((study) =>
+  study.data.quotes.filter((quote) => quote.text.trim()).map((quote) => ({ ...quote, client: study.data.client })),
+);
+const pageUrl = new URL(sitePath('/', base), siteConfig.site).href;
+const portrait = new URL(asset('/images/omar-headshot.jpg', base), siteConfig.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      name: 'Omar Faruk',
+      jobTitle: 'Growth product designer',
+      email: `mailto:${links.email}`,
+      url: pageUrl,
+      image: portrait,
+      sameAs: [links.linkedin, links.dribbble, links.portfolio],
+    },
+    {
+      '@type': 'WebSite',
+      name: 'Omar Faruk',
+      url: pageUrl,
+    },
+  ],
+};
+---
+
+<Base
+  title="Omar Faruk · Growth product designer"
+  description="Users sign up, then drop off. Omar Faruk is a psychology driven growth product designer for SaaS, enterprise, web and mobile apps. He designs so people reach first value."
+  jsonLd={jsonLd}
+>
+  <header class="hero">
+    <div class="container">
+      <p class="section-label">Psychology driven growth product designer</p>
+      <h1>Users sign up, then drop off.</h1>
+      <div class="hero-card">
+        <p>I design web apps, mobile apps, and websites from scratch, or I redesign them. I redesign onboarding so users reach first value faster.</p>
+        <p>I learn the business before I touch the product. I work remotely, but clients feel I'm their in-house designer.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button" href={sitePath('#work', base)}>Selected work</a>
+        <a class="button button-ghost" href={sitePath('#contact', base)}>Start a project</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="work">
+    <div class="container">
+      <p class="section-label">Selected work</p>
+      <div class="work-grid">
+        {
+          studies.map((study) => (
+            <a class="work-card" href={sitePath(`/work/${study.id}/`, base)}>
+              <p class="eyebrow">{study.data.client}</p>
+              <h3>{study.data.outcome || study.data.title}</h3>
+              {study.data.cover ? (
+                <img src={asset(study.data.cover, base)} alt="" width="1600" height="1000" />
+              ) : null}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    quotes.length > 0 && (
+      <section id="praise" aria-labelledby="praise-title">
+        <div class="container">
+          <p class="section-label" id="praise-title">What people say</p>
+          <div class="quote-grid">
+            {quotes.map((quote) => (
+              <figure class="quote">
+                <blockquote>
+                  <p>{quote.text}</p>
+                </blockquote>
+                <figcaption>{quote.by}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section id="proof" aria-labelledby="proof-title">
+    <div class="container">
+      <p class="section-label" id="proof-title">Proof</p>
+      <div class="proof-grid">
+        {
+          proof.map((item) => (
+            <article class="proof-card">
+              <p class="eyebrow">{item.kicker}</p>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <p class="section-label">Services</p>
+      <h2>Four ways to work together</h2>
+      <div class="service-grid">
+        {
+          services.map((service) => (
+            <article class="service-card">
+              <p class="service-promise">{service.promise}</p>
+              <h3>{service.name}</h3>
+              <p>{service.summary}</p>
+              <p>{service.bestFor}</p>
+              <h4>What you get</h4>
+              <ul>
+                {service.gets.map((item) => <li>{item}</li>)}
+              </ul>
+              <h4>How it works</h4>
+              <ol>
+                {service.steps.map((step) => <li>{step}</li>)}
+              </ol>
+              <p class="price">{service.price}</p>
+              <p class="timeline">{service.timeline}. Pricing varies with scope.</p>
+              <p class="note">{service.proof}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container about-grid">
+      <div>
+        <p class="section-label">About</p>
+        <h2>I make complex products easier to use, and easier to grow.</h2>
+        <div class="bio">
+          {bio.map((paragraph) => <p>{paragraph}</p>)}
+          <p>I have spent 6+ years designing for human behavior, not just screens. The work started in 2018. I studied for a BA at Sylhet MC College, and completed the Product Psychology Masterclass at Growth.Design in 2024.</p>
+          <p>Day to day I work in Figma, FigJam, Miro, and Adobe Creative Suite.</p>
+        </div>
+        <ul class="experience">
+          {
+            experience.map((item) => (
+              <li>
+                <strong>{item.role}</strong>
+                <span>{item.when}. {item.note}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <img
+        class="about-photo"
+        src={asset('/images/omar-headshot.jpg', base)}
+        alt="Portrait of Omar Faruk"
+        width="1254"
+        height="1254"
+      />
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2>Tell me where people drop off.</h2>
+      <p>Email the product and the step where users get stuck. If it is an onboarding flow, I will send 3 friction notes before you book.</p>
+      <a class="email" href={`mailto:${links.email}`}>{links.email}</a>
+      <div class="contact-links">
+        <a href={links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a href={links.dribbble} target="_blank" rel="noopener noreferrer">Dribbble<span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a href={links.portfolio} target="_blank" rel="noopener noreferrer">Current portfolio<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </div>
+  </section>
+</Base>
