@@ -79,7 +79,7 @@ export const services: Service[] = [
       'Document the design and support the team while they build',
     ],
     price: 'From $4,000',
-    timeline: 'A typical project takes 4 weeks',
+    timeline: 'Typically 4 weeks',
     proof: 'On IBTE, setup time dropped 70%. At Jiak, merchant onboarding reached 43% across 4,300+ restaurants.',
   },
   {
@@ -100,7 +100,7 @@ export const services: Service[] = [
       'Document the specs and stay available while the team builds',
     ],
     price: 'From $2,000',
-    timeline: 'A typical project takes 3 to 6 weeks',
+    timeline: 'Typically 4 weeks',
     proof: 'At Jiak, the restaurant product reached a 43% merchant onboarding rate. At SuccessGroup, a rental platform reached 90% rental completion and 53% customer retention.',
   },
   {
@@ -121,7 +121,7 @@ export const services: Service[] = [
       'Document the design and support the team while they build',
     ],
     price: 'From $1,200',
-    timeline: 'A typical project takes 2 weeks',
+    timeline: 'Typically 2 weeks',
     proof: 'While I worked on Jiak, menu to order conversion lifted 22%.',
   },
   {
@@ -141,7 +141,7 @@ export const services: Service[] = [
       'Walk you through the design and the reasons behind it',
     ],
     price: '$790',
-    timeline: '1 week',
+    timeline: 'Typically 1 week',
     proof: 'At Jiak, merchant onboarding reached 43% across 4,300+ restaurants. Send the product link and where users drop off, and I will send 3 friction notes before you book.',
   },
 ];

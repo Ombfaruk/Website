@@ -10,6 +10,10 @@ test('home, case study, services, and contact render', async ({ page }) => {
   await expect(page.getByText('From $2,000')).toBeVisible();
   await expect(page.getByText('From $1,200')).toBeVisible();
   await expect(page.getByText('$790')).toBeVisible();
+  await expect(page.getByText('Typically 4 weeks')).toHaveCount(2);
+  await expect(page.getByText('Typically 2 weeks')).toBeVisible();
+  await expect(page.getByText('Typically 1 week')).toBeVisible();
+  await expect(page.getByText('Pricing varies by scope and requirements')).toHaveCount(4);
   await expect(page.getByRole('link', { name: 'collaborate.omar@gmail.com' })).toBeVisible();
   await expect(page.getByRole('link', { name: /LinkedIn/ }).first()).toHaveAttribute('href', 'https://www.linkedin.com/in/designbyomarf/');
   await expect(page.getByRole('link', { name: /Dribbble/ }).first()).toHaveAttribute('href', 'https://dribbble.com/designbyomar');
