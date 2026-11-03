@@ -1,23 +1,28 @@
 ---
-import { sitePath } from '../lib/asset';
 import { links } from '../data/site';
 
-const base = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 ---
 
 <footer>
   <div class="footer-inner">
-    <div>
-      <p class="footer-name">Omar Faruk</p>
-      <p>Growth product designer, working remotely.</p>
+    <div class="footer-identity">
+      <h3>Omar Faruk</h3>
+      <p class="footer-role">Growth product designer</p>
+      <p class="footer-note">Selected case studies are on this site.</p>
     </div>
-    <div class="footer-links">
-      <a href={links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
-      <a href={links.dribbble} target="_blank" rel="noopener noreferrer">Dribbble<span class="visually-hidden"> (opens in a new tab)</span></a>
-      <a href={links.portfolio} target="_blank" rel="noopener noreferrer">Current portfolio<span class="visually-hidden"> (opens in a new tab)</span></a>
-      <a href={sitePath('/admin/', base)}>Admin</a>
+    <div class="footer-connect">
+      <a class="footer-linkedin" href={links.linkedin} target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.1c.5-1 1.8-2.1 3.8-2.1 4 0 4.8 2.6 4.8 6V24h-4v-7.7c0-1.8 0-4.1-2.5-4.1s-2.9 2-2.9 4V24h-4V8.5z" />
+        </svg>
+        <span>I share the work on LinkedIn.<br />Connect and follow me.</span>
+      </a>
+      <div class="footer-links">
+        <a href={links.dribbble} target="_blank" rel="noopener noreferrer">Dribbble<span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a href={links.portfolio} target="_blank" rel="noopener noreferrer">Current portfolio<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
     </div>
-    <p class="footer-copy">© {year} Omar Faruk</p>
+    <span class="footer-rights">© {year} All rights reserved.</span>
   </div>
 </footer>

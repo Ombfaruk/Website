@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { links } from '../../data/site';
 import { asset, sitePath } from '../../lib/asset';
 import { parseCaseStudy } from '../../lib/caseStudy';
 import { renderMarkdown } from '../../lib/renderMarkdown';
@@ -24,109 +25,154 @@ const base = import.meta.env.BASE_URL;
 if (!entry.filePath) throw new Error(`Missing file for ${entry.id}`);
 const body = parseCaseStudy(fs.readFileSync(entry.filePath, 'utf8')).body;
 const data = entry.data;
-
-type Block = { type: 'prose'; html: string } | { type: 'gallery' } | { type: 'quotes' };
-const blocks: Block[] = [];
-let placedGallery = false;
-let placedQuotes = false;
-for (const section of splitCaseSections(body)) {
-  if (section.isResults && !placedGallery) {
-    blocks.push({ type: 'gallery' });
-    placedGallery = true;
-  }
-  const html = renderMarkdown(section.markdown, base);
-  if (html.trim()) blocks.push({ type: 'prose', html });
-  if (section.isResults && !placedQuotes) {
-    blocks.push({ type: 'quotes' });
-    placedQuotes = true;
-  }
-}
-if (!placedGallery) blocks.push({ type: 'gallery' });
-if (!placedQuotes) blocks.push({ type: 'quotes' });
+const studies = publishedWork(await getCollection('work'));
+const index = studies.findIndex((study) => study.id === entry.id);
+const next = index >= 0 ? studies[index + 1] : undefined;
+const sections = splitCaseSections(body);
+const firstParagraph = body
+  .replace(/^## .+$/gm, '')
+  .split(/\n\n+/)
+  .map((part) => part.replace(/\s+/g, ' ').trim())
+  .find(Boolean) ?? '';
 
 const description = `${data.outcome} A product design case study for ${data.client} by Omar Faruk.`;
 const shareImage = /\.(png|jpe?g|webp)$/i.test(data.cover)
   ? asset(data.cover, base)
   : asset('/images/omar-headshot.jpg', base);
+
+function sectionBody(markdown: string) {
+  return renderMarkdown(markdown.replace(/^## .+\n+/, ''), base);
+}
 ---
 
-<Base title={data.outcome || data.title} description={description} image={shareImage} imageAlt={data.coverAlt || data.outcome} ogType="article">
-  <article class="case">
-    <div class="container">
-      <a class="back" href={sitePath('/#work', base)}>All work</a>
-      {
-        data.cover && (
-          <div class="cover">
-            {data.coverType === 'video' ? (
-              <video src={asset(data.cover, base)} controls playsinline>
-                <p>{data.coverAlt}</p>
-              </video>
-            ) : (
-              <img src={asset(data.cover, base)} alt={data.coverAlt} width="1600" height="1000" />
-            )}
+<Base title={data.outcome || data.title} description={description} image={shareImage} imageAlt={data.coverAlt || data.outcome} ogType="article" contactHref={`mailto:${links.email}`}>
+  <article class="case-study">
+    <section class="case-nav">
+      <div class="container">
+        <div class="case-nav-inner">
+          <a class="case-nav-link" href={sitePath('/#work', base)}>
+            <span class="roundel" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+            </span>
+            <span class="case-nav-title">Back</span>
+          </a>
+          {
+            next && (
+              <a class="case-nav-link" href={sitePath(`/work/${next.id}/`, base)}>
+                <span class="case-nav-title">Next</span>
+                <span class="roundel" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="case-band" style="padding-top: 32px;">
+      <div class="container">
+        <div class="case-hero">
+          <div class="case-hero-text">
+            <h1>{data.outcome || data.title}</h1>
+            <div class="case-hero-meta">
+              Role: {data.role}<br />
+              Client: {data.client}<br />
+              Time: {data.timeline}
+            </div>
+            <p class="case-hero-body">{firstParagraph}</p>
           </div>
-        )
-      }
-      <p class="eyebrow">{data.client}</p>
-      <h1>{data.outcome || data.title}</h1>
-      {
-        data.tags.length > 0 && (
-          <ul class="tags" style="margin-top: 18px;">
-            {data.tags.map((tag) => <li>{tag}</li>)}
-          </ul>
-        )
-      }
-      <dl class="meta">
-        <div>
-          <dt>Role</dt>
-          <dd>{data.role}</dd>
+          <div class="case-hero-image">
+            {
+              data.coverType === 'video' ? (
+                <video src={asset(data.cover, base)} controls playsinline></video>
+              ) : (
+                <img src={asset(data.cover, base)} alt={data.coverAlt} />
+              )
+            }
+          </div>
         </div>
-        <div>
-          <dt>Timeline</dt>
-          <dd>{data.timeline}</dd>
-        </div>
-        <div>
-          <dt>Client</dt>
-          <dd>{data.client}</dd>
-        </div>
-      </dl>
-      {
-        blocks.map((block) => {
-          if (block.type === 'prose') return <div class="prose" set:html={block.html} />;
-          if (block.type === 'gallery' && data.gallery.length > 0) {
-            return (
-              <section aria-labelledby="screens-title">
-                <h2 id="screens-title">Final screens</h2>
-                <ul class="gallery">
-                  {data.gallery.map((image) => (
-                    <li>
-                      <figure>
-                        <img src={asset(image.src, base)} alt={image.alt} width="1600" height="1200" loading="lazy" />
+      </div>
+    </section>
+
+    {
+      sections.map((section) => {
+        const gallery = section.isResults && data.gallery.length > 0;
+        return (
+          <>
+            {gallery && (
+              <section class="case-band">
+                <div class="container">
+                  <h2 class="case-band-label">Final screens</h2>
+                  <div class="case-grid-3">
+                    {data.gallery.map((image) => (
+                      <figure class="case-card case-figure">
+                        <img src={asset(image.src, base)} alt={image.alt} />
                         {image.caption ? <figcaption>{image.caption}</figcaption> : null}
                       </figure>
-                    </li>
-                  ))}
-                </ul>
+                    ))}
+                  </div>
+                </div>
               </section>
-            );
-          }
-          if (block.type === 'quotes' && data.quotes.length > 0) {
-            return (
-              <div class="quote-grid">
-                {data.quotes.map((quote) => (
-                  <figure class="quote">
-                    <blockquote>
-                      <p>{quote.text}</p>
-                    </blockquote>
-                    {quote.by ? <figcaption>{quote.by}</figcaption> : null}
-                  </figure>
-                ))}
+            )}
+            <section class="case-band">
+              <div class="container">
+                {section.heading ? <div class="case-band-label">{section.heading}</div> : null}
+                <div class="case-card">
+                  <div class="case-prose" set:html={sectionBody(section.markdown)} />
+                </div>
               </div>
-            );
-          }
-          return null;
-        })
-      }
-    </div>
+            </section>
+          </>
+        );
+      })
+    }
+
+    {
+      !sections.some((section) => section.isResults) && data.gallery.length > 0 && (
+        <section class="case-band">
+          <div class="container">
+            <h2 class="case-band-label">Final screens</h2>
+            <div class="case-grid-3">
+              {data.gallery.map((image) => (
+                <figure class="case-card case-figure">
+                  <img src={asset(image.src, base)} alt={image.alt} />
+                  {image.caption ? <figcaption>{image.caption}</figcaption> : null}
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    {
+      data.quotes.length > 0 && (
+        <section class="case-band">
+          <div class="container">
+            <div class="case-band-label">What people say</div>
+            <div class="testimonials-grid">
+              {data.quotes.map((quote) => (
+                <figure class="testimonial-card">
+                  <blockquote class="quote">"{quote.text}"</blockquote>
+                  <figcaption class="author">
+                    <span class="avatar" aria-hidden="true"></span>
+                    <span class="author-name">{quote.by}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="contact" id="contact">
+      <div class="container contact-content">
+        <h2>Tell me where people drop off.</h2>
+        <p>Email the product and the step where users get stuck. <a href={`mailto:${links.email}`}>{links.email}</a></p>
+        <a class="cta-btn" href={`mailto:${links.email}`}>Get in touch</a>
+      </div>
+    </section>
   </article>
 </Base>

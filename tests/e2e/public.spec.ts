@@ -42,9 +42,8 @@ test('home, case study, services, and contact render', async ({ page }) => {
 test('layout holds together on a phone', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/Website/');
-  await page.getByRole('button', { name: 'Menu' }).click();
-  await page.getByRole('link', { name: 'Services' }).click();
-  await expect(page.locator('#services')).toBeInViewport();
+  await expect(page.getByRole('link', { name: 'Get in touch' }).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Work', exact: true })).toBeHidden();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
   expect(overflow).toBe(false);
 });
