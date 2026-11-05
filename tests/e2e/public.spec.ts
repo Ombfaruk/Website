@@ -3,9 +3,9 @@ import { expect, test } from '@playwright/test';
 test('home, case study, services, and contact render', async ({ page }) => {
   await page.goto('/Website/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText("Hello, I'm Omar");
-  await expect(page.getByRole('link', { name: /Jiak digital menu/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: /Habit creation flow/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: /YNOW application review/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /From Static Lists to a Menu Owners Could Shape/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Making habit creation easier/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /When a million dollar decision lives in seven tools/ })).toBeVisible();
   await expect(page.getByRole('link', { name: 'X' }).first()).toHaveAttribute('href', 'https://x.com/designbyomarf');
   await expect(page.getByRole('link', { name: 'LinkedIn' }).first()).toHaveAttribute('href', 'https://www.linkedin.com/in/designbyomarf/');
   await expect(page.getByRole('link', { name: 'Dribbble' }).first()).toHaveAttribute('href', 'https://dribbble.com/designbyomar');
@@ -16,10 +16,10 @@ test('home, case study, services, and contact render', async ({ page }) => {
   await expect(page.locator('body')).not.toContainText('Placeholder');
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /omar-headshot\.jpg/);
 
-  await page.getByRole('link', { name: /Jiak digital menu/ }).click();
+  await page.getByRole('link', { name: /From Static Lists to a Menu Owners Could Shape/ }).click();
   await expect(page).toHaveURL(/\/Website\/work\/jiak\/$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Jiak digital menu');
-  await expect(page.getByText('Treat those as goals, not as measured results.')).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('From Static Lists to a Menu Owners Could Shape');
+  await expect(page.getByText('Those were goals, not results.')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Screens', exact: true })).toBeVisible();
   await expect(page.getByRole('img', { name: /Jiak menu builder beside the customer view/ })).toBeVisible();
   await expect(page.getByText('Founder and CEO, Jiak Technology')).toBeVisible();
@@ -38,12 +38,12 @@ test('home, case study, services, and contact render', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Experience' })).toBeVisible();
 
   await page.goto('/Website/work/habit-tracker/');
-  await expect(page.getByText('a few people').first()).toBeVisible();
-  await expect(page.getByText('not a measured result').first()).toBeVisible();
+  await expect(page.getByText('tested informally with 5 people').first()).toBeVisible();
+  await expect(page.getByText('not measured data from my test').first()).toBeVisible();
 
   await page.goto('/Website/work/ynow/');
   await expect(page.getByText('40% faster').first()).toBeVisible();
-  await expect(page.getByText('live platform').first()).toBeVisible();
+  await expect(page.getByText('no live product metrics').first()).toBeVisible();
 });
 
 test('layout holds together on a phone', async ({ page }) => {

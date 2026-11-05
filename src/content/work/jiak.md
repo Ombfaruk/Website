@@ -1,6 +1,6 @@
 ---
-title: "Jiak digital menu"
-outcome: "From a static menu to one owners can update"
+title: "From Static Lists to a Menu Owners Could Shape"
+outcome: "Menu builder and live customer menu for 4,300+ restaurants; goals set, not measured."
 client: "Jiak Technology"
 role: "Product Designer (UX, UI)"
 timeline: "Feb 2025 to Sep 2025"
@@ -39,53 +39,108 @@ quotes:
     by: "Head of Engineering, Jiak Technology"
 ---
 
-## Context
+## Hook
 
-Jiak is a restaurant platform in Singapore. I led the design of a project to turn static menus into a simple interactive experience, so busy owners can save time and customers can order with confidence. The case study is framed around empowering 14,000 restaurant owners.
+A customer opens a restaurant menu.
 
-I worked remotely, so I could not interview owners myself. I raised that with the client. He agreed to speak with a few owners for me. I prepared a short list of questions.
+The prices are hard to find. The photos are small. There is no sign of what the chef recommends.
 
-## Problem
+Meanwhile, the owner wants to change a dish. They cannot do it in real time.
 
-The menu had been built by developers, with no UX work. It looked like a static list. Plain text, small thumbnails, and no structure to guide a customer. Pricing was not clear. There were no upsell options and no real time updates.
+I joined Jiak Technology, a Singapore restaurant platform, as a Product Designer for UX and UI. The platform served more than 4,300 restaurants.
 
-It was the most painful part of the platform. It slowed staff and confused customers.
+## Persona
 
-The feedback was consistent. Updating a menu took too long. Owners could not control what customers saw in real time. Menus were not visually consistent, and they did not cue an upsell.
+I designed for two people with different needs.
 
-The challenge was a digital menu builder that felt easy for owners to update, fast for kitchens to run, and clear for customers discovering a dish and placing an order.
+Restaurant owners needed to update a menu without waiting on staff or developers.
 
-## Process
+Customers needed to understand the dishes, prices, and offers before ordering.
+
+I could not interview owners directly while working remotely. I prepared questions, and the CEO spoke with a few owners on my behalf.
+
+## Product problem
+
+The old menu was a static list built by developers without UX design.
+
+It used plain text and small thumbnails. Pricing was unclear. There were no upsell cues or real time updates.
+
+Owners said menu updates took too long. They had little control, inconsistent visuals, and no clear way to promote dishes.
+
+Staff had to help customers through a confusing menu.
+
+## Insight
+
+The menu had two jobs.
+
+It had to help owners make changes with confidence. It also had to help customers choose with confidence.
+
+That meant treating the builder and the customer menu as one experience, with a clear handoff from setup to ordering.
+
+## Scope
 
 I used user interviews, journey mapping, UX psychology, competitive analysis, wireframing, a design system, and prototyping.
 
-I asked three questions. What is the hardest part of updating the menu? How often do dishes or prices change? What frustrates customers when they order?
+I looked lightly at tools such as Chope, Oddle, and Online.
 
-Before drawing screens, I looked at other restaurant tools. I wanted to see how they handle menu structure, interactivity, and real time updates, and where Jiak could be simpler.
+The engineers were already using Ant Design. I built a warmer hybrid design system on top of it.
 
-I mapped the path from the kitchen to the customer. That covered adding dishes, updating stock, and customers placing orders. It showed where the day slowed down.
+I also designed or refined Analytics, Business Setup, Live Queue, Usage, Reservation, Reports, and Waiter Panel.
 
-I sketched faster ways to add or edit a dish. Early wireframes were tested with the team, refined quickly, and shaped into one clear flow.
+## Beat 1: Empty list, no guidance
 
-The engineers were already using Ant Design, for speed. The default style felt too rigid for Jiak's friendly tone. I built a modular layer on top, so the visuals matched Jiak and the structure stayed compatible with Ant Design.
+An empty menu gives an owner nowhere to start.
 
-In the builder, an owner names the menu, sets when it is available, and previews the customer view. The preview is there so the menu matches what is actually available. They then add a dish in one place: details, price, extras, and a highlight for a bestseller or a premium item. Dietary and promotional tags sit in the same flow.
+I shaped the builder around a clear sequence: name the menu, set availability, then preview it.
 
-Two ideas shaped that flow. Progressive disclosure shows only what is needed next, so fields like ingredients or modifiers appear after the basics. A sense of progress comes from small step changes, using the goal gradient effect, rather than a heavy progress bar.
+The first step made the task feel smaller. The progress gave owners a reason to keep going.
 
-The customer menu turns a static list into a live one. Clear pricing supports trust. Chef tips guide discovery. Real time offers invite a next step. A hand holding the menu matches the real world, like a waiter presenting it. Chef tips draw on authority. Showing a saving on a dish frames the choice as a smaller decision.
+📌 Progressive Disclosure: show the next useful step, not every choice at once.
 
-The menu was not the whole engagement. I also designed or refined analytics, business setup, live queue, usage, reservation, reports, and the waiter panel. Some of these were new. Others were improved.
+📌 Goal Gradient Effect: make progress visible so finishing feels closer.
 
-## Results
+## Beat 2: Building a dish without overwhelm
 
-My contract ended before results for this menu could be measured. The team had already set goals:
+Adding a dish meant handling details, prices, add ons, and tags. Showing everything at once could make a simple task feel like a form to endure.
 
-- Build a menu in under 3 minutes, with a success rate over 90%.
-- Lift upselling and order value by 15%.
-- Make the menu experience stand out against competitors.
-- Increase interaction with tips and offers.
+I organized the flow so owners could add dish details and pricing, then include add ons, bestsellers, dietary tags, and promotion tags where they mattered.
 
-Treat those as goals, not as measured results.
+📌 Progressive Disclosure: group details by the decision the owner is making.
 
-Working remotely, I relied on the CEO to bring owner insight back. Ant Design was a real constraint. It became a hybrid design system: warm enough for a restaurant product, structured enough for the engineers. The useful lesson was to turn a limit into a system that respects the business, the people using it, and the technology already chosen.
+## Beat 3: Live menu that feels real
+
+A plain list asks customers to do all the interpretation themselves.
+
+I designed a live menu with transparent pricing, chef tips, and real time offers. The experience should feel like holding a menu with a waiter nearby to guide the choice.
+
+📌 Match Between System and Real World: make the digital menu behave like a familiar restaurant menu.
+
+📌 Authority Bias: use chef tips to help customers trust a recommendation.
+
+📌 Perceived Value Bias: show savings clearly, such as “You saved $X.”
+
+## Honest outcomes
+
+The contract ended before the menu work could be measured.
+
+The goals were to help owners build a menu in under 3 minutes with over 90% success, increase upselling and order value by 15%, stand out from competitors, and encourage more interaction with tips and offers.
+
+Those were goals, not results. I do not have measured outcomes for this menu study.
+
+## Recap
+
+I redesigned the path from an empty menu to a live customer experience.
+
+Owners could structure menus, add dish details, set availability, and preview their work. Customers could see clear prices, chef tips, and current offers.
+
+The work covered the builder, the live menu, and supporting platform areas.
+
+## Reflection
+
+Working remotely meant I could not speak with owners directly. I prepared questions for the CEO to use in conversations with a few owners. That gave the work some owner input, though direct interviews would have given me a clearer view of their daily routines.
+
+Later, on related Jiak platform work, Owner Portal merchant onboarding reached 43% across 4,300+ restaurants. That is an Owner Portal onboarding figure, not a measured result of this Digital Menu study.
+
+If you are working through a menu or onboarding flow, you can reach me at collaborate.omar@gmail.com or https://ombfaruk.github.io/Website/
+
+You can also find me at https://x.com/designbyomarf.
