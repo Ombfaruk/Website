@@ -1,0 +1,109 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Socials from '../components/Socials.astro';
+import { bio, experience, services } from '../data/site';
+import { asset } from '../lib/asset';
+import { publishedWork } from '../lib/work';
+
+const base = import.meta.env.BASE_URL;
+const studies = publishedWork(await getCollection('work'));
+const frames = studies.flatMap((study) => [study.data.cover, ...study.data.gallery.map((image) => image.src)]).filter(Boolean);
+const loop = [...frames, ...frames];
+---
+
+<Base
+  title="About Omar Faruk"
+  description="Omar Faruk is a freelance product designer. He learns the business first, then designs web apps, mobile apps, websites, and onboarding."
+>
+  <div class="about">
+    <div class="about-container">
+      <div class="col-12">
+        <div class="span-4">
+          <img
+            class="about-photo rise"
+            src={asset('/images/omar-headshot.jpg', base)}
+            alt="Omar Faruk"
+            width="1024"
+            height="1024"
+          />
+        </div>
+        <div class="span-8 about-small">
+          <div class="about-big rise" style="animation-delay: 80ms">
+            <h1>Hello,</h1>
+            <h1 class="title-2">I'm Omar</h1>
+            <p>{bio[0]}</p>
+          </div>
+          <div class="col-2">
+            <div>
+              <h3>Day job</h3>
+              <p>
+                I work solo as a freelance product designer, from Sep 2025. Before that I designed at Jiak Technology, Roofer.com, RoBenDevs, and Naturehub.
+              </p>
+            </div>
+            <div>
+              <h3>How I work</h3>
+              <p>{bio[1]} {bio[2]}</p>
+            </div>
+          </div>
+          <Socials />
+        </div>
+      </div>
+    </div>
+
+    <div class="experience col-12" id="services">
+      <div class="span-4">
+        <h1>Services</h1>
+      </div>
+      <div class="span-8 powers col-2">
+        {
+          services.map((service) => (
+            <div>
+              <h3>{service.name}</h3>
+              <p>{service.summary}</p>
+              <p>
+                <b>{service.promise}.</b> {service.price}. {service.timeline}. Pricing varies by scope and requirements.
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      loop.length > 0 && (
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            {loop.map((src) => (
+              <img src={asset(src, base)} alt="" />
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    <div class="experience col-12">
+      <div class="span-4 exp-left">
+        <h1>Experience</h1>
+      </div>
+      <div class="span-8 exp-right">
+        <div class="col-8">
+          {
+            experience.map((item) => (
+              <>
+                <div class="span-2">
+                  <h3>{item.when}</h3>
+                </div>
+                <div class="span-6 info">
+                  <h3>{item.role}</h3>
+                  <h3 class="mb-date">{item.when}</h3>
+                  <p>{item.note}</p>
+                </div>
+              </>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

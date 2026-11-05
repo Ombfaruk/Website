@@ -8,28 +8,28 @@ tags:
   - Restaurant
   - Web
   - Mobile
-cover: "/uploads/jiak/cover.svg"
-coverAlt: "Placeholder cover for the Jiak digital menu. Omar will replace this image."
+cover: "/uploads/jiak/cover.jpg"
+coverAlt: "Jiak menu builder beside the customer view of Mini Laksa Bites."
 coverType: image
 gallery:
-  - src: "/uploads/jiak/menu-builder.svg"
-    alt: "Placeholder frame for the Jiak menu builder. Omar will replace this image."
-    caption: "Menu builder"
-  - src: "/uploads/jiak/customer-menu.svg"
-    alt: "Placeholder frame for the Jiak customer menu. Omar will replace this image."
+  - src: "/uploads/jiak/menu-builder.jpg"
+    alt: "Jiak screen for adding a dish, with the name, category, and description."
+    caption: "Add a dish"
+  - src: "/uploads/jiak/menu-list.jpg"
+    alt: "Jiak screen for setting which days and times a menu is available."
+    caption: "Set availability"
+  - src: "/uploads/jiak/customer-menu.jpg"
+    alt: "Customer menu for Mini Laksa Bites, with price, tags, and a chef tip."
     caption: "Customer live menu"
-  - src: "/uploads/jiak/menu-list.svg"
-    alt: "Placeholder frame for the Jiak menu list. Omar will replace this image."
-    caption: "All menus in one place"
-  - src: "/uploads/jiak/analytics.svg"
-    alt: "Placeholder frame for Jiak analytics. Omar will replace this image."
-    caption: "Analytics and usage"
-  - src: "/uploads/jiak/tables.svg"
-    alt: "Placeholder frame for Jiak table management. Omar will replace this image."
+  - src: "/uploads/jiak/analytics.jpg"
+    alt: "Jiak customer insights with visit counts and a frequency chart."
+    caption: "Customer insights"
+  - src: "/uploads/jiak/tables.jpg"
+    alt: "Jiak floor plan for arranging tables in the main dining room."
     caption: "Table management"
-  - src: "/uploads/jiak/business-setup.svg"
-    alt: "Placeholder frame for Jiak business setup. Omar will replace this image."
-    caption: "Business setup"
+  - src: "/uploads/jiak/business-setup.jpg"
+    alt: "Jiak reservation settings with a date restriction dialog."
+    caption: "Reservation settings"
 draft: false
 order: 1
 quotes:

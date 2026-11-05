@@ -84,4 +84,4 @@ npm run test:e2e
 npm run build
 ```
 
-Case studies live in `src/content/work/*.md`. Images live in `public/uploads/<slug>/`. The public site reads those files at build time. Drafts (`draft: true`) are not published. Placeholder frames are labeled so they are obvious until a real screen replaces them.
+Case studies live in `src/content/work/*.md`. Images live in `public/uploads/<slug>/`. The public site reads those files at build time. Drafts (`draft: true`) are not published. New studies added in admin show up in the same templates.

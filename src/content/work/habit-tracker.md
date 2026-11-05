@@ -8,27 +8,27 @@ tags:
   - Mobile
   - Behavioral design
   - Experiment
-cover: "/uploads/habit/cover.svg"
-coverAlt: "Placeholder cover for the habit creation flow. Omar will replace this image."
+cover: "/uploads/habit/cover.jpg"
+coverAlt: "Phone screen for starting a new habit, with goals for creating, tracking, rewards, and sharing."
 coverType: image
 gallery:
-  - src: "/uploads/habit/home.svg"
-    alt: "Placeholder frame for the proposed habit home screen. Omar will replace this image."
+  - src: "/uploads/habit/home.jpg"
+    alt: "Proposed habit home screen with a start button and four reasons to begin."
     caption: "Proposed home"
-  - src: "/uploads/habit/habit-list.svg"
-    alt: "Placeholder frame for the proposed habit list. Omar will replace this image."
+  - src: "/uploads/habit/habit-list.jpg"
+    alt: "Habit picker with a short list of starter habits and a custom habit button."
     caption: "Proposed habit list"
-  - src: "/uploads/habit/step-1.svg"
-    alt: "Placeholder frame for habit creation step 1. Omar will replace this image."
+  - src: "/uploads/habit/step-1.jpg"
+    alt: "First step of habit setup, asking for a name, description, and color."
     caption: "Step 1, the basics"
-  - src: "/uploads/habit/step-2.svg"
-    alt: "Placeholder frame for habit creation step 2. Omar will replace this image."
+  - src: "/uploads/habit/step-2.jpg"
+    alt: "Second step of habit setup, asking for a target."
     caption: "Step 2, the target"
-  - src: "/uploads/habit/step-3.svg"
-    alt: "Placeholder frame for habit creation step 3. Omar will replace this image."
+  - src: "/uploads/habit/step-3.jpg"
+    alt: "Third step of habit setup, asking how progress will be tracked."
     caption: "Step 3, tracking"
-  - src: "/uploads/habit/congrats.svg"
-    alt: "Placeholder frame for the habit congrats screen. Omar will replace this image."
+  - src: "/uploads/habit/congrats.jpg"
+    alt: "Congrats screen after a habit is created, with a button to start."
     caption: "Congrats screen"
 draft: false
 order: 2

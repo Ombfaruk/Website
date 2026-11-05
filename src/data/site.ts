@@ -146,9 +146,17 @@ export const services: Service[] = [
   },
 ];
 
+export const heroLines = [
+  'I make complex products easier to use',
+  'I find where people get stuck',
+  'I learn the business before the product',
+  'I design for SaaS, web, and mobile',
+  'I stay involved after launch',
+];
+
 export const links = {
   email: 'collaborate.omar@gmail.com',
+  x: 'https://x.com/designbyomarf',
   linkedin: 'https://www.linkedin.com/in/designbyomarf/',
   dribbble: 'https://dribbble.com/designbyomar',
-  portfolio: 'https://omar.figma.site',
 };
