@@ -1,16 +1,20 @@
 ---
+import fs from 'node:fs';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Socials from '../components/Socials.astro';
 import { siteConfig } from '../config';
-import { bio, experience, links, services } from '../data/site';
+import { bio, heroLines, links } from '../data/site';
+import { parseCaseStudy } from '../lib/caseStudy';
 import { asset, sitePath } from '../lib/asset';
+import { clientLabel, firstParagraph, studyYear } from '../lib/excerpts';
 import { publishedWork } from '../lib/work';
 
 const base = import.meta.env.BASE_URL;
-const studies = publishedWork(await getCollection('work'));
-const quotes = studies.flatMap((study) =>
-  study.data.quotes.filter((quote) => quote.text.trim()).map((quote) => ({ ...quote })),
-);
+const studies = publishedWork(await getCollection('work')).map((study) => {
+  const body = study.filePath ? parseCaseStudy(fs.readFileSync(study.filePath, 'utf8')).body : '';
+  return { ...study, story: body };
+});
 const pageUrl = new URL(sitePath('/', base), siteConfig.site).href;
 const portrait = new URL(asset('/images/omar-headshot.jpg', base), siteConfig.site).href;
 const jsonLd = {
@@ -19,231 +23,121 @@ const jsonLd = {
     {
       '@type': 'Person',
       name: 'Omar Faruk',
-      jobTitle: 'Growth product designer',
+      jobTitle: 'Product designer',
       email: `mailto:${links.email}`,
       url: pageUrl,
       image: portrait,
-      sameAs: [links.linkedin, links.dribbble, links.portfolio],
+      sameAs: [links.x, links.linkedin, links.dribbble],
     },
     { '@type': 'WebSite', name: 'Omar Faruk', url: pageUrl },
   ],
 };
-const planes = [
-  ['#8AECFF', '#457680'],
-  ['#5CD5EE', '#2E6B77'],
-  ['#42B1E4', '#215972'],
-  ['#2A57C9', '#152C65'],
-  ['#091B81', '#050E45'],
-];
+
+function cardText(body: string) {
+  const paragraph = firstParagraph(body);
+  if (paragraph.length <= 280) return paragraph;
+  const cut = paragraph.slice(0, 280);
+  const space = cut.lastIndexOf(' ');
+  return `${(space > 80 ? cut.slice(0, space) : cut).replace(/[.,;:]+$/, '')}.`;
+}
 ---
 
 <Base
-  title="Omar Faruk · Growth product designer"
-  description="Users sign up, then drop off. Omar Faruk is a psychology driven growth product designer for SaaS, enterprise, web and mobile apps. He designs so people reach first value."
+  title="Omar Faruk, product designer"
+  description="Omar Faruk is a product designer for enterprise SaaS, web apps, mobile apps, and websites. He makes complex products easier to use and easier to grow."
   jsonLd={jsonLd}
 >
-  <h1 class="visually-hidden">Users sign up, then drop off.</h1>
-  <section class="hero" id="hero">
-    <div class="container">
-      <div class="hero-image">
-        <span class="hero-text-wrapper"><span class="hero-text">Users sign up, then drop off.</span></span>
+  <section class="jumbotron">
+    <div class="left">
+      <div class="rise">
+        <h1>Hello, I'm Omar</h1>
+        <h2 class="jumbo-line">
+          <span class="rotator" id="hero-rotator" data-lines={JSON.stringify(heroLines)}>
+            <span class="rotator-line">{heroLines[0]}</span>
+          </span>
+        </h2>
+      </div>
+      <div class="job-row rise" style="animation-delay: 120ms">
+        <div>
+          <h3>Currently</h3>
+          <h4>Freelance product designer</h4>
+        </div>
+        <div>
+          <h3>Previously at</h3>
+          <h4>Jiak, Roofer.com & RoBenDevs</h4>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <img
+        class="portrait rise"
+        style="animation-delay: 180ms"
+        src={asset('/images/omar-headshot.jpg', base)}
+        alt="Portrait of Omar Faruk"
+        width="1024"
+        height="1024"
+      />
+      <div class="hello rise" style="animation-delay: 240ms">
+        <h3>Nice to meet you</h3>
+        <h4>{bio[0]}</h4>
+      </div>
+      <div class="rise" style="animation-delay: 320ms">
+        <Socials />
       </div>
     </div>
   </section>
 
-  <section class="intro-statement">
-    <div class="container">
-      <div class="intro-statement-card">
-        <p>👋 <strong>I'm Omar, I design where people drop off</strong> and rebuild the path so they reach first value.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="work">
-    <div class="container">
-      <div class="section-label">Work</div>
-      <div class="case-studies-grid">
-        <div class="case-studies-row-top">
-          {
-            studies.map((study) => (
-              <a class="case-card" href={sitePath(`/work/${study.id}/`, base)}>
-                <div class="case-card-image">
-                  {study.data.coverType === 'video' ? (
-                    <video src={asset(study.data.cover, base)} muted playsinline></video>
-                  ) : (
-                    <img src={asset(study.data.cover, base)} alt="" width="1600" height="1200" />
-                  )}
-                </div>
-                <div class="case-card-body">
-                  <div class="case-card-company">{study.data.client}</div>
-                  <div class="case-card-title">{study.data.title}</div>
-                </div>
-                <div class="case-card-byline">{study.data.outcome}</div>
-                <span class="case-card-cta-circle" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </span>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {
-    quotes.length > 0 && (
-      <section class="testimonials" id="testimonials">
-        <div class="container">
-          <div class="section-label">What people say</div>
-          <div class="testimonials-grid">
-            {quotes.map((quote) => (
-              <figure class="testimonial-card">
-                <blockquote class="quote">"{quote.text}"</blockquote>
-                <figcaption class="author">
-                  <span class="avatar" aria-hidden="true"></span>
-                  <span>
-                    <span class="author-name">{quote.by}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <section class="approach" id="approach">
-    <div class="container">
-      <div class="section-label">Approach</div>
-      <div class="approach-card">
-        <div class="approach-card-text">
-          <h2 class="approach-headline">I learn the business before I touch the product.</h2>
-          <div class="approach-label-wrapper">
-            <div class="approach-type-title" id="approach-title">Experience</div>
-            <div class="approach-type-sub" id="approach-sub">Screens people can finish</div>
-            <div class="approach-dots" id="approach-dots">
-              <span class="dot active"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-          </div>
-        </div>
-        <div class="approach-stack-wrapper">
-          <div class="approach-stack" id="approach-stack">
-            <div class="approach-anchor approach-anchor-top"><span class="anchor-line"></span>Business</div>
-            <div class="approach-anchor approach-anchor-bottom"><span class="anchor-line"></span>Screens</div>
-            {
-              [...planes].reverse().map((colors, index) => (
-                <svg class={`plane plane-${5 - index}`} viewBox="0 0 246 72" aria-hidden="true">
-                  <path d="M122.775 0L245.549 29.27L122.775 58.55L0 29.27L122.775 0Z" fill={colors[0]} />
-                  <path d="M122.775 58.55L245.549 29.27V42.08L122.775 71.36L0 42.08V29.27L122.775 58.55Z" fill={colors[1]} />
-                </svg>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-
-      <div class="outcomes-grid" id="services">
-        {
-          services.map((service) => (
-            <article class="outcome-card">
-              <h3>{service.name}</h3>
-              <ul>
-                <li>{service.promise}</li>
-                <li>{service.price}. {service.timeline}.</li>
-                <li>Pricing varies by scope and requirements.</li>
-              </ul>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section id="experience">
-    <div class="container">
-      <div class="talks-grid">
-        <div class="talks-intro">
-          <img class="about-photo" src={asset('/images/omar-headshot.jpg', base)} alt="Portrait of Omar Faruk" width="1254" height="1254" />
-          <div class="section-label">About</div>
-          <h2>I make complex products easier to use, and easier to grow.</h2>
-          {bio.map((paragraph) => <p>{paragraph}</p>)}
-        </div>
-        <div class="talks-list">
-          {
-            experience.map((item) => (
-              <div class="talk-item">
-                <span class="talk-name">{item.role}</span>
-                <span class="talk-venue">{item.when}</span>
+  <div class="root-container" id="work">
+    <div class="home-card-container">
+      {
+        studies.map((study, index) => {
+          const year = studyYear(study.data.timeline);
+          const tags = [clientLabel(study.data.client), 'Case study', year].filter(Boolean);
+          const href = sitePath(`/work/${study.id}/`, base);
+          return (
+            <a class="project-card rise" style={`animation-delay: ${180 + index * 90}ms`} href={href}>
+              <div class="preview">
+                {study.data.coverType === 'video' ? (
+                  <video src={asset(study.data.cover, base)} muted playsinline loop autoplay></video>
+                ) : (
+                  <img src={asset(study.data.cover, base)} alt={study.data.coverAlt || study.data.title} />
+                )}
               </div>
-            ))
-          }
-        </div>
-      </div>
+              <div class="card-copy">
+                <h3>{study.data.title}</h3>
+                <p>{cardText(study.story || study.data.outcome)}</p>
+                <div class="project-context">
+                  {tags.map((tag) => (
+                    <>
+                      <h4>{tag}</h4>
+                      <h4 class="dot">·</h4>
+                    </>
+                  ))}
+                </div>
+              </div>
+            </a>
+          );
+        })
+      }
     </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <div class="container contact-content">
-      <h2>Tell me where people drop off.</h2>
-      <p>Email the product and the step where users get stuck. <a href={`mailto:${links.email}`}>{links.email}</a></p>
-      <a class="cta-btn" href={`mailto:${links.email}`}>Get in touch</a>
-    </div>
-  </section>
+  </div>
 </Base>
 
 <script>
-  const layers = [
-    { title: 'Experience', sub: 'Screens people can finish' },
-    { title: 'The path', sub: 'From sign up to first value' },
-    { title: 'The system', sub: 'Components that stay consistent' },
-    { title: 'The constraint', sub: 'The business and the stack' },
-    { title: 'The outcome', sub: 'What the work needs to change' },
-  ];
-  const stack = document.getElementById('approach-stack');
-  const titleEl = document.getElementById('approach-title');
-  const subEl = document.getElementById('approach-sub');
-  const dots = document.querySelectorAll('#approach-dots .dot');
+  const rotator = document.getElementById('hero-rotator');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (stack && titleEl && subEl && !reduce) {
-    let index = 0;
-    const typeSpeed = 40;
-    const eraseSpeed = 20;
-    const show = (next) => {
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === next));
-      const erase = () => {
-        const current = titleEl.textContent || '';
-        if (!current.length) {
-          titleEl.textContent = '';
-          let typed = '';
-          const text = layers[next].title;
-          const typer = window.setInterval(() => {
-            typed += text[typed.length] || '';
-            titleEl.textContent = typed;
-            if (typed.length >= text.length) {
-              window.clearInterval(typer);
-              subEl.textContent = layers[next].sub;
-              subEl.style.opacity = '1';
-            }
-          }, typeSpeed);
-          return;
-        }
-        titleEl.textContent = current.slice(0, -1);
-        window.setTimeout(erase, eraseSpeed);
-      };
-      subEl.style.opacity = '0';
-      erase();
-    };
-    window.setInterval(() => {
-      stack.classList.toggle('condensed');
-      if (stack.classList.contains('condensed')) {
-        index = (index + 1) % layers.length;
-        show(index);
-      }
-    }, 2500);
+  if (rotator && !reduce) {
+    const lines = JSON.parse(rotator.dataset.lines || '[]') as string[];
+    const hold = rotator.querySelector('.rotator-line');
+    if (hold instanceof HTMLElement && lines.length > 1) {
+      let index = 0;
+      window.setInterval(() => {
+        index = (index + 1) % lines.length;
+        hold.classList.remove('is-in');
+        void hold.offsetWidth;
+        hold.textContent = lines[index];
+        hold.classList.add('is-in');
+      }, 2000);
+    }
   }
 </script>

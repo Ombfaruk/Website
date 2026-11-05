@@ -1,22 +1,67 @@
 ---
 import { sitePath } from '../lib/asset';
-
-interface Props {
-  contactHref?: string;
-}
+import { links } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
-const { contactHref = sitePath('#contact', base) } = Astro.props;
+const home = sitePath('/', base);
+const about = sitePath('/about/', base);
+const services = `${about}#services`;
+const path = Astro.url.pathname;
+const onHome = path === home || path === home.replace(/\/$/, '');
+const onAbout = path.replace(/\/$/, '') === about.replace(/\/$/, '');
 ---
 
-<nav aria-label="Primary">
-  <div class="nav-inner">
-    <a class="name" href={sitePath('/', base)}>Omar Faruk</a>
-    <div class="links">
-      <a href={sitePath('#work', base)}>Work</a>
-      <a href={sitePath('#approach', base)}>About</a>
-      <a href={sitePath('#experience', base)}>Experience</a>
-      <a class="cta" href={contactHref}>Get in touch</a>
-    </div>
+<header class="top-navbar">
+  <div class="frost" aria-hidden="true">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-</nav>
+  <a class="brand" href={home} aria-label="Omar Faruk, home">
+    <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="24" fill="#111" />
+      <text x="24" y="29.5" text-anchor="middle" fill="#fff" font-family="Manrope, sans-serif" font-size="15" font-weight="800">OF</text>
+    </svg>
+  </a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+    <span class="nav-bars" aria-hidden="true"></span>
+    <span class="visually-hidden">Menu</span>
+  </button>
+  <nav id="site-nav" class="site-nav" aria-label="Primary" data-home={onHome ? 'true' : 'false'} data-about={onAbout ? 'true' : 'false'}>
+    <a class:list={['nav-link', onHome && 'is-active']} href={home} data-nav="work">Work</a>
+    <a class="nav-link" href={services} data-nav="services">Services</a>
+    <a class:list={['nav-link', onAbout && 'is-active']} href={about} data-nav="about">About</a>
+    <a class="nav-link" href={`mailto:${links.email}`}>Email</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.site-nav');
+  if (toggle instanceof HTMLButtonElement && nav instanceof HTMLElement) {
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const label = toggle.querySelector('.visually-hidden');
+      if (label) label.textContent = open ? 'Close' : 'Menu';
+    };
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
+    nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+    const servicesLink = nav.querySelector('[data-nav="services"]');
+    const aboutLink = nav.querySelector('[data-nav="about"]');
+    const syncHash = () => {
+      if (nav.dataset.about !== 'true' || !(servicesLink instanceof HTMLElement) || !(aboutLink instanceof HTMLElement)) return;
+      const servicesOn = location.hash === '#services';
+      servicesLink.classList.toggle('is-active', servicesOn);
+      aboutLink.classList.toggle('is-active', !servicesOn);
+    };
+    syncHash();
+    window.addEventListener('hashchange', syncHash);
+  }
+</script>

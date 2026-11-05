@@ -1,6 +1,6 @@
 ---
-title: "YNOW application review"
-outcome: "From scattered reviews to one place to decide"
+title: "When a million dollar decision lives in seven tools"
+outcome: "A unified review workflow cut prototype task time by 40% and brought seven tools into one."
 client: "YNOW Ltd. at Contra Investment"
 role: "Product Designer (UX, UI)"
 timeline: "Feb 2025 to Jun 2025"
@@ -8,99 +8,129 @@ tags:
   - Fintech
   - Enterprise
   - Web
-cover: "/uploads/ynow/cover.svg"
-coverAlt: "Placeholder cover for the YNOW application review system. Omar will replace this image."
+cover: "/uploads/ynow/cover.jpg"
+coverAlt: "YNOW review screen for an applicant, with stages on the left and supporting documents on the right."
 coverType: image
 gallery:
-  - src: "/uploads/ynow/dashboard.svg"
-    alt: "Placeholder frame for the YNOW dashboard. Omar will replace this image."
+  - src: "/uploads/ynow/dashboard.jpg"
+    alt: "YNOW dashboard with application counts, a task list, and a schedule."
     caption: "Dashboard"
-  - src: "/uploads/ynow/progress.svg"
-    alt: "Placeholder frame for YNOW applicant progress. Omar will replace this image."
+  - src: "/uploads/ynow/progress.jpg"
+    alt: "YNOW applicant record showing review stages and uploaded documents."
     caption: "Applicant progress"
-  - src: "/uploads/ynow/review.svg"
-    alt: "Placeholder frame for the YNOW collaborative review. Omar will replace this image."
+  - src: "/uploads/ynow/review.jpg"
+    alt: "YNOW review workspace with stage status for one applicant."
     caption: "Collaborative review"
-  - src: "/uploads/ynow/decision.svg"
-    alt: "Placeholder frame for an independent YNOW decision. Omar will replace this image."
-    caption: "Independent decision"
-  - src: "/uploads/ynow/summary.svg"
-    alt: "Placeholder frame for the YNOW final evaluation. Omar will replace this image."
+  - src: "/uploads/ynow/decision.jpg"
+    alt: "YNOW stage review with an investment summary, fit checks, and notes."
+    caption: "Stage review"
+  - src: "/uploads/ynow/summary.jpg"
+    alt: "YNOW summary of an application before a final decision."
     caption: "Final evaluation"
-  - src: "/uploads/ynow/applicant-site.svg"
-    alt: "Placeholder frame for the YNOW applicant website. Omar will replace this image."
+  - src: "/uploads/ynow/applicant-site.jpg"
+    alt: "YNOW page applicants see when they start an application."
     caption: "Applicant website"
-  - src: "/uploads/ynow/cv-upload.svg"
-    alt: "Placeholder frame for the YNOW CV upload. Omar will replace this image."
+  - src: "/uploads/ynow/cv-upload.jpg"
+    alt: "YNOW screen for uploading a CV."
     caption: "CV upload"
-  - src: "/uploads/ynow/offer.svg"
-    alt: "Placeholder frame for signing a YNOW offer letter. Omar will replace this image."
-    caption: "Offer letter"
+  - src: "/uploads/ynow/offer.jpg"
+    alt: "YNOW applicant forms for a franchise application, a video introduction, and job details."
+    caption: "Applicant forms"
 draft: false
 order: 3
 ---
 
-## Context
+## Hook
 
-I led product design for the YNOW application review system at Contra Investment. HR, operations, finance, and decision makers evaluate applicants who are applying for investments that can be worth millions. People apply to expand a franchise, to consult, or to find a new job.
+An investment application arrives.
 
-Each decision needs careful human judgment. The process was slow and messy. HR screened people, finance checked the numbers, operations reviewed logistics, and then the board had to meet. Getting everyone in one room was nearly impossible. Emails piled up, feedback got lost, and decisions dragged on for weeks.
+HR checks the documents. Finance checks the numbers. Operations checks the plan. Field teams visit the site. Legal verifies the paperwork. Investors weigh the risk.
 
-It was not a lack of effort. It was a lack of coordination. YNOW needed a way to keep people aligned without waiting for a meeting.
+Then the emails pile up. Notes live elsewhere. Someone asks for an update. The decision waits.
 
-I worked directly with the Global Chief Executive of Contra Investment, and with other people in the process.
+I designed a review system to bring the work back together.
 
-## Problem
+## Persona
 
-People spent more time trying to stay in touch than reviewing applications. Meetings dragged, updates got lost, and coordination broke down. Not because anyone did not care. They could not stay connected across so many steps.
+I worked as Product Designer across UX and UI for YNOW Ltd.’s Application Review System at Contra Investment, from February to June 2025.
 
-What slowed the work:
+I worked with Contra Investment’s Global Chief Executive and people across the review process.
 
-- It was hard to find time together. Decisions paused until everyone could attend.
-- There were too many ways to communicate. Feedback was scattered across email, sheets, and chats.
-- Critical notes and document requests lived outside the system.
-- Leadership wanted human control. They trusted people, not automation.
-- HR and investors spent hours chasing updates instead of deciding.
+They evaluate applicants looking to expand a franchise, consult, or find a new job. Some investments can be worth millions. Each team needs to bring its expertise, while leadership keeps people in control of the final decision.
 
-The work moved through six groups. HR did screening and compliance. Finance audited the numbers. Operations checked feasibility and resources. Field teams visited sites and uploaded findings. Legal verified documents. Investors judged risk and business potential.
+## Product problem
 
-In the end, things slowed down because the team lacked connection, not because they lacked insight.
+Reviews moved across too many communication channels.
 
-## Process
+Feedback got lost. Meetings were hard to arrange. Notes and documents sat outside the system. Decisions dragged on for weeks, while reviewers chased updates.
 
-I used user interviews, journey mapping, UX psychology, competitive analysis, wireframing, a design system, and prototyping.
+There were no direct competitors to study, so I looked at adjacent review and approval tools.
 
-I talked with each department about how an application moved from hand to hand, and where it got stuck. That map showed what each group owned.
+## Insight
 
-Three research points shaped the product. Reviewers needed a personal space to evaluate on their own. Other people's work should stay hidden until every review is in. The system had to hold calls, notes, reports, and documents in one place.
+Reviewers needed room to make their own assessment before seeing anyone else’s.
 
-YNOW had no direct competitors. I looked at adjacent tools to see how they handle reviews, approvals, and keeping a team aligned.
+Transparency mattered, but only after every review was complete. And the system needed to hold calls, notes, reports, and documents together.
 
-I mapped each team's journey, because the roles are different, and then connected those paths into one flow.
+The goal was not to automate judgment. It was to make human judgment easier to coordinate.
 
-The design puts everyone in one shared space, in three parts.
+## Scope
 
-1. A dashboard with active applications, status, and pending actions.
-2. A review stage where each department can rate, write a note, and upload documents.
-3. A decision summary where investors and board members see the final reports before they approve.
+I shaped the reviewer experience around three views:
 
-When someone opens an applicant, they can see the current stage. Teams used to chase that update across departments. The stages stay separate, and a progress bar shows movement. That uses the goal gradient effect. People work faster when they can see they are getting closer.
+1. A dashboard for active applications, status, and pending actions.
+2. An application review stage for ratings, notes, and uploads.
+3. A decision summary for investors and the board.
 
-HR, finance, operations, and the other teams can see notes, files, and ratings in real time. There is no need to chase an update in another tool.
+I also designed the applicant side, including the website, CV upload, and offer letter. That work covered more than 300 screens across applicant types. I planned a separate study for it.
 
-Board members do not work to a fixed deadline. They can sign in when they are ready, review the full record, and decide. No one can see another person's decision until they have submitted their own. People often shift an opinion after seeing what others chose. Hiding those decisions until each person has answered is there to reduce that social influence bias.
+My methods included user interviews, journey mapping, UX psychology, competitive analysis, wireframing, design system work, and prototyping.
 
-The source notes 300 plus screens across applicant types, which is too many to show in one study. I designed the applicant side as well, including the website, uploading a CV, and signing an offer letter. I planned to show that work in a separate case study. A few of those screens are marked here as placeholders.
+## Beat 1: Progress you can see
 
-## Results
+Reviewers had to chase people just to learn where an application stood.
 
-My contract ended before final metrics were collected from the live platform. Prototype testing gave early results.
+I added a dashboard that shows active applications, their status, and the next pending action. Inside each application, clear stages show how far the review has moved.
 
-- 95% of reviewers agreed the new workflow solved their major coordination problems.
-- Participants completed review tasks 40% faster than with the previous manual process.
-- HR, finance, and investment teams said they were ready to move to the new system after launch.
-- Reviewer touchpoints dropped from 7 tools to 1 workspace.
+📌 Goal Gradient Effect: visible progress can help people stay oriented and move toward completion. I made the next step easy to see.
 
-The deeper lesson was about alignment, not automation. The hard part was trust between people who used to need a meeting before they could decide. Speed matters when it comes with clarity. Working apart does not have to mean falling out of touch.
+## Beat 2: One workspace, not seven tools
 
-Design is not only a smoother flow. It is a system that lets people think together, even when they are apart.
+Calls, notes, reports, and documents were scattered across tools. Reviewers had to switch places to piece together the application.
+
+I brought the review work into one workspace. Reviewers can rate an application, add notes, and upload supporting material in its review stage.
+
+📌 Cognitive Load: people spend effort when they have to gather context from many places. I kept the review materials together.
+
+## Beat 3: Decide without copying the room
+
+A reviewer could be influenced by decisions already made by others. But each team needed space to assess the application independently.
+
+I hid other reviewers’ decisions until someone submitted their own. Once every review was complete, the decision summary gave investors and the board a shared view.
+
+📌 Social Influence Bias: people can shift their judgment to match a group. I let each reviewer submit an independent assessment before revealing others’ decisions.
+
+## Honest outcomes
+
+The contract ended before the system went live, so there are no live product metrics.
+
+In prototype testing, 95% of reviewers agreed the workflow solved major coordination pain. Participants completed review tasks 40% faster than with the previous manual process.
+
+HR, Finance, and Investment confirmed they were ready to transition. Reviewer touchpoints went from seven tools to one unified workspace.
+
+## Recap
+
+I worked with Contra Investment to turn a scattered review process into three connected views: a dashboard, a review stage, and a decision summary.
+
+The design made progress visible, brought review materials together, and protected independent judgment.
+
+## Reflection
+
+The hardest part was not adding automation. It was making a complex decision easier to coordinate while keeping people responsible for it.
+
+Prototype results showed a promising path. I would want to learn from live reviews before making claims about long term impact.
+
+For collaboration: collaborate.omar@gmail.com  
+https://ombfaruk.github.io/Website/
+
+You can also find me at https://x.com/designbyomarf.

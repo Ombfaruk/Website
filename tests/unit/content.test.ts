@@ -110,8 +110,8 @@ describe('case study files', () => {
     for (const name of ['jiak.md', 'habit-tracker.md', 'ynow.md']) {
       const study = parseCaseStudy(readFileSync(join('src/content/work', name), 'utf8'));
       const next = markdownFrom(markdownToSafeHtml(study.body));
-      expect(next).toContain('## Context');
-      expect(next).toContain('## Results');
+      expect(next).toContain('## Hook');
+      expect(next).toContain('## Honest outcomes');
     }
   });
 
@@ -121,25 +121,27 @@ describe('case study files', () => {
       return { data: study };
     });
     expect(publishedWork(entries).map((entry) => entry.data.title)).toEqual([
-      'Jiak digital menu',
-      'Habit creation flow',
-      'YNOW application review',
+      'From Static Lists to a Menu Owners Could Shape',
+      'Making habit creation easier, one small step at a time',
+      'When a million dollar decision lives in seven tools',
     ]);
   });
 
   it('does not treat Jiak menu goals as measured results', () => {
     const jiak = parseCaseStudy(readFileSync('src/content/work/jiak.md', 'utf8'));
-    expect(jiak.body).toContain('Treat those as goals, not as measured results.');
-    expect(jiak.body).not.toContain('43%');
+    expect(jiak.body).toContain('Those were goals, not results.');
+    expect(jiak.body).toContain('4,300');
+    expect(jiak.body).not.toContain('14,000');
+    expect(jiak.body).toContain('not a measured result of this Digital Menu study');
     expect(jiak.quotes.map((quote) => quote.by)).toEqual([
       'Founder and CEO, Jiak Technology',
       'Head of Engineering, Jiak Technology',
     ]);
     const habit = parseCaseStudy(readFileSync('src/content/work/habit-tracker.md', 'utf8'));
-    expect(habit.body).toContain('a few people');
-    expect(habit.body).toContain('not a measured result');
+    expect(habit.body).toContain('5 people');
+    expect(habit.body).toContain('not measured data from my test');
     const ynow = parseCaseStudy(readFileSync('src/content/work/ynow.md', 'utf8'));
-    expect(ynow.body).toContain('live platform');
+    expect(ynow.body).toContain('no live product metrics');
     expect(ynow.body).toContain('40% faster');
     expect(ynow.body).toContain('Global Chief Executive');
   });
